@@ -1,7 +1,7 @@
 import discord
 
-# TODO: kan ook als env variable
-token = input('Token: ')
+# Local imports
+import settings
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -20,4 +20,4 @@ async def on_message(message):
     if message.content.startswith('pong'):
         await message.channel.send('ping!')
 
-client.run(token)
+client.run(DISCORD_API_SECRET)
