@@ -1,5 +1,8 @@
 import discord
 
+# Local imports
+import settings
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -23,4 +26,4 @@ async def on_message(message):
     if message.content.startswith('$help'):
         await message.channel.send('How can I assist you?')
 
-client.run('MTIyOTMzNzQ1MjY2NjI5MDI0Nw.GVm1DV.0jp_9tEjkWRrO4J70MxPB3ukk9SJJ7ySclWRMM')
+client.run(DISCORD_API_SECRET)
