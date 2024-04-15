@@ -33,6 +33,7 @@ async def on_message(message):
         help_message += "6. To display the list of games, say '$showgames'.\n"
         help_message += "7. To clear the list of games, say '$cleargames'.\n"
         help_message += "8. To show current votes, say '$showvotes'.\n"
+        help_message += "9. To reset votes, say '$resetvotes'.\n"
         await message.channel.send(help_message)
     elif message.content.startswith('$vote'):
         question = message.content[len('$vote'):].strip()
@@ -62,6 +63,9 @@ async def on_message(message):
     elif message.content == '$showvotes':
         for question, votes in vote_data.items():
             await message.channel.send(f"{question}: 👍 {votes['👍']} | 👎 {votes['👎']}")
+    elif message.content == '$resetvotes':
+        vote_data.clear()
+        await message.channel.send('Votes have been reset.')
 
 @client.event
 async def on_reaction_add(reaction, user):
