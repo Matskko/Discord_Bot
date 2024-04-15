@@ -1,7 +1,7 @@
 import discord
 
 # Local imports
-import settings
+from settings import DISCORD_API_SECRET
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -19,8 +19,7 @@ async def on_message(message):
 
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
-
-    if message.content.startswith('$goodbye'):
+    elif message.content.startswith('$goodbye'):
         await message.channel.send('Goodbye!')
 
     if message.content.startswith('$help'):
