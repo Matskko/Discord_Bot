@@ -8,6 +8,7 @@ intents.reactions = True
 client = discord.Client(intents=intents)
 
 playing_games = []
+vote_data = {}
 
 @client.event
 async def on_ready():
@@ -18,7 +19,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('$hello wizard'):
+    if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
     elif message.content.startswith('$goodbye'):
         await message.channel.send('Goodbye!')
@@ -31,10 +32,12 @@ async def on_message(message):
         help_message += "5. To add 3 games to the list, say '$playinggame <game1>, <game2>, <game3>'.\n"
         help_message += "6. To display the list of games, say '$showgames'.\n"
         help_message += "7. To clear the list of games, say '$cleargames'.\n"
+        help_message += "8. To show current votes, say '$showvotes'.\n"
         await message.channel.send(help_message)
     elif message.content.startswith('$vote'):
         question = message.content[len('$vote'):].strip()
         if question:
+            vote_data[question] = {'👍': 0, '👎': 0}
             vote_message = await message.channel.send(f"Vote: {question}")
             await vote_message.add_reaction('👍')
             await vote_message.add_reaction('👎')
@@ -56,6 +59,9 @@ async def on_message(message):
     elif message.content == '$cleargames':
         playing_games.clear()
         await message.channel.send("Games list cleared.")
+    elif message.content == '$showvotes':
+        for question, votes in vote_data.items():
+            await message.channel.send(f"{question}: 👍 {votes['👍']} | 👎 {votes['👎']}")
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -63,7 +69,11 @@ async def on_reaction_add(reaction, user):
         return
 
     if reaction.message.content.startswith("Vote:"):
-        # Here you can implement logic to handle reactions to vote messages
-        pass
+        question = reaction.message.content[len("Vote: "):].strip()
+        if question in vote_data:
+            if str(reaction) in ['👍', '👎']:
+                vote_data[question][str(reaction)] += 1
+            else:
+                await reaction.message.channel.send("Invalid reaction.")
 
 client.run(DISCORD_API_SECRET)
