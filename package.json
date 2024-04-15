@@ -1,0 +1,22 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "My discord bot",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matskko/Discord_Bot.git"
+  },
+  "author": "Tobias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matskko/Discord_Bot/issues"
+  },
+  "homepage": "https://github.com/Matskko/Discord_Bot#readme"
+}
