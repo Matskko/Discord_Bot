@@ -20,7 +20,12 @@ async def on_message(message):
     elif message.content.startswith('$goodbye'):
         await message.channel.send('Goodbye!')
     elif message.content.startswith('$wizard help'):
-        await message.channel.send('How can the great wizard assist you?')
+        help_message = "How can the great wizard assist you?\n"
+        help_message += "1. To greet the wizard, say '$hello wizard'.\n"
+        help_message += "2. To bid farewell to the wizard, say '$goodbye'.\n"
+        help_message += "3. To get help from the wizard, say '$wizard help'.\n"
+        help_message += "4. To initiate a vote, say '$vote <question>'.\n"
+        await message.channel.send(help_message)
     elif message.content.startswith('$vote'):
         question = message.content[len('$vote'):].strip()
         if question:
